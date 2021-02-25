@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public GameObject bullet;
 
     Camera cam;
-    Transform image;
+    Renderer _renderer;
     float speed;
     float rotationSpeed;
     float radius;
@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
         cam = GameObject.FindObjectOfType<Camera>();
         speed = 1f;
         rotationSpeed = 60f;
-        image = transform.Find("player");
-        radius = image.GetComponent<SpriteRenderer>().bounds.size.x / 2;
+        _renderer = GetComponent<SpriteRenderer>();
+        radius = _renderer.bounds.size.x / 2;
 
     }
 
