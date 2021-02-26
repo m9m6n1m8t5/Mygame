@@ -5,16 +5,22 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed;
+    public float activeTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        activeTime = 5f;
+        Destroy(gameObject, activeTime);
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.Translate(new Vector3(0f, speed * Time.deltaTime, 0f));
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Destroy(gameObject);
     }
 }
