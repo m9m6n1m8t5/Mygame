@@ -6,11 +6,13 @@ public class Bullet : MonoBehaviour
 {
     public float speed;
     public float duration;
+    public int damage;
 
     // Start is called before the first frame update
     void Start()
     {
         duration = 5f;
+        damage = 1;
         Destroy(gameObject, duration);
     }
 

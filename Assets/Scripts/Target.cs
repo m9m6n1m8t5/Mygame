@@ -40,5 +40,9 @@ public class Target : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Instantiate(m_explosionPrefab, collision.transform.localPosition, Quaternion.identity);
+        if (collision.gameObject.GetComponent<Bullet>())
+        {
+            print(collision.gameObject.GetComponent<Bullet>().damage);
+        }
     }
 }
