@@ -5,13 +5,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed;
-    public float activeTime;
+    public float duration;
 
     // Start is called before the first frame update
     void Start()
     {
-        activeTime = 5f;
-        Destroy(gameObject, activeTime);
+        duration = 5f;
+        Destroy(gameObject, duration);
     }
 
     // Update is called once per frame

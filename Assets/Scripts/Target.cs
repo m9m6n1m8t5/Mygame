@@ -8,6 +8,7 @@ public class Target : MonoBehaviour
     public float circularMovementRadius;
     public float circularMovementAngule;
     public float circularMovementRotationSpeed;
+    public Explosion m_explosionPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,6 @@ public class Target : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print(collision.GetInstanceID() + ": trigger");
+        Instantiate(m_explosionPrefab, collision.transform.localPosition, Quaternion.identity);
     }
 }
