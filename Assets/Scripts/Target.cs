@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,9 +11,16 @@ public class Target : MonoBehaviour
     public float circularMovementRotationSpeed;
     public Explosion m_explosionPrefab;
 
+    public int m_hp;
+    public int m_max_hp;
+
+    public static Target m_instance;
+
     // Start is called before the first frame update
     void Start()
     {
+        m_instance = this;
+        m_hp = m_max_hp = 10;
         circularMovementCenter = new Vector2(0f, 0f);
         circularMovementRadius = 1f;
         circularMovementAngule = 0f;
@@ -32,17 +40,13 @@ public class Target : MonoBehaviour
         transform.position = new Vector2(Mathf.Sin(circularMovementAngule), Mathf.Cos(circularMovementAngule)) * circularMovementRadius + circularMovementCenter;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        print("collision");
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Instantiate(m_explosionPrefab, collision.transform.localPosition, Quaternion.identity);
         if (collision.gameObject.GetComponent<Bullet>())
         {
-            print(collision.gameObject.GetComponent<Bullet>().damage);
+            var damage = collision.gameObject.GetComponent<Bullet>().damage;
+            m_hp -= damage;
         }
     }
 }

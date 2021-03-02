@@ -313,3 +313,4 @@ MonoBehaviour:
   circularMovementRadius: 0
   circularMovementAngule: 0
   circularMovementRotationSpeed: 0
+  m_explosionPrefab: {fileID: 0}
