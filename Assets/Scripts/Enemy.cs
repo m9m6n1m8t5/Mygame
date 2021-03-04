@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Target : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     public Vector2 circularMovementCenter;
     public float circularMovementRadius;
@@ -11,25 +11,38 @@ public class Target : MonoBehaviour
     public float circularMovementRotationSpeed;
     public Explosion m_explosionPrefab;
 
-    public int m_hp;
-    public int m_max_hp;
-
-    public static Target m_instance;
-
-    // Start is called before the first frame update
-    void Start()
+    private int m_hp;
+    private int m_max_hp;
+    public int Hp
     {
-        m_instance = this;
+        get
+        {
+            return m_hp;
+        }
+    }
+    public int MaxHp
+    {
+        get
+        {
+            return m_max_hp;
+        }
+    }
+
+    private void Awake()
+    {
         m_hp = m_max_hp = 10;
         circularMovementCenter = new Vector2(0f, 0f);
         circularMovementRadius = 1f;
         circularMovementAngule = 0f;
-        circularMovementRotationSpeed = 30f * Mathf.PI /180 * Time.deltaTime; // radian
-
+        circularMovementRotationSpeed = 30f * Mathf.PI / 180 * Time.deltaTime; // radian
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
         // テキストの表示
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.sortingLayerName = "enemy";
-        meshRenderer.sortingOrder = 1;
+        meshRenderer.sortingOrder = 0;
     }
 
     // Update is called once per frame
@@ -46,7 +59,13 @@ public class Target : MonoBehaviour
         if (collision.gameObject.GetComponent<Bullet>())
         {
             var damage = collision.gameObject.GetComponent<Bullet>().damage;
-            m_hp -= damage;
+            Damage(damage);
         }
+    }
+
+    void Damage(int damage)
+    {
+        m_hp -= damage;
+        if (m_hp <= 0) Destroy(gameObject);            
     }
 }
